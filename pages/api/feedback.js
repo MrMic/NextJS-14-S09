@@ -22,7 +22,11 @@ function handler(req, res) {
 
     res.status(201).json({ message: "Success", feedback: newFeedback });
   } else {
-    res.status(200).json({ message: "Hello from API" });
+    const filePath = path.join(process.cwd(), "data", "feedback.json");
+    const fileData = fs.readFileSync(filePath);
+    const data = JSON.parse(fileData);
+
+    res.status(200).json({ feedback: data });
   }
 }
 
